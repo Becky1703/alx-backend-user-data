@@ -5,6 +5,7 @@ import re
 import base64
 import binascii
 
+
 class BasicAuth(Auth):
     """class inherits from Auth"""
     def extract_base64_authorization_header(
