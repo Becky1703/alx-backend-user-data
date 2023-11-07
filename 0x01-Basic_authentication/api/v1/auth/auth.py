@@ -2,6 +2,7 @@
 """Authorization Class"""
 from flask import Flask, request
 from typing import TypeVar, List
+import re
 
 
 class Auth:
@@ -11,7 +12,18 @@ class Auth:
         Returns:
           - False - path and excluded_paths
         """
-        return False
+        if path is not None and excluded_paths is not None:
+            for exclusion_path in map(lambda x: x.strip(), excluded_paths):
+                pattern = ''
+                if exclusion_path[-1] == '*':
+                    pattern = ''
+                elif exclusion_path[-1] == '/':
+                    pattern = '{}/*'.format(exclusion_path[0:-1])
+                else:
+                    pattern = '{}/*'.format(exclusion_path)
+                if re.match(pattern, path):
+                    return False
+        return True
 
     def authorization_header(self, request=None) -> str:
         """Public method to handle authorization"""
