@@ -30,4 +30,3 @@ def login() -> Tuple[str, int]:
         res.set_cookie(os.getenv("SESSION_NAME"), sessiond_id)
         return res
     return jsonify({"error": "wrong password"}), 401
-
