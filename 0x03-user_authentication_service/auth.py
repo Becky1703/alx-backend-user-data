@@ -79,7 +79,7 @@ class Auth:
             return None
         self._db.update_user(user_id, session_id=None)
 
-    def get_reset_password(self, rest_token: str, password: str) -> None:
+    def get_reset_password_token(self, email: str) -> str:
         """Method generates a password reset token for a user"""
         user = None
         try:
